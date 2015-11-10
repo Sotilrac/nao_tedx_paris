@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.1" uuid="paristedx">
+<package uuid="paristedx" version="0.0.1">
  <names>
   <name lang="en_US">Paris TEDx</name>
  </names>
@@ -23,15 +23,22 @@
     <sentence lang="en_US">TED</sentence>
     <sentence lang="en_US">TED ex</sentence>
     <sentence lang="en_US">TED x</sentence>
+    <sentence lang="en_US">Paris ted x</sentence>
+    <sentence lang="en_US">ted ex</sentence>
+    <sentence lang="en_US">ted x</sentence>
+    <sentence lang="en_US">blow my mind</sentence>
+    <sentence lang="en_US">open your mind</sentence>
    </triggerSentences>
    <loadingResponses>
     <sentence lang="en_US">Let's share ideas</sentence>
     <sentence lang="en_US">I have an idea worth sharing</sentence>
+    <sentence lang="en_US">Let me open your mind</sentence>
    </loadingResponses>
+   <autonomous/>
    <permissions/>
   </behaviorContent>
  </contents>
  <requirements>
-  <robotRequirement model="NAO_H25" maxBodyVersion="5.0" minHeadVersion="4.0" maxHeadVersion="5.0" minBodyVersion="3.3"/>
+  <robotRequirement maxHeadVersion="5.0" minBodyVersion="3.3" maxBodyVersion="5.0" model="NAO_H25" minHeadVersion="4.0"/>
  </requirements>
 </package>
