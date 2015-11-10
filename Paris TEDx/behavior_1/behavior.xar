@@ -22,6 +22,7 @@
                             <script language="4">
                                 <content>
                                     <![CDATA[
+import qi
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
@@ -29,21 +30,43 @@ class MyClass(GeneratedClass):
     def onLoad(self):
         self.ses = self.session()
         self.anim_speech = self.ses.service('ALAnimatedSpeech')
-        self.daps = self.ses.service('ALAnimatedSpeech')
+        self.tts = self.ses.service('ALTextToSpeech')
+        self.posture = self.ses.service("ALRobotPosture")
+        self.aware = self.ses.service("ALBasicAwareness")
+        self.error_msg = "Oh my! I screwed up. Sorry."
         self.content = ["""Tickle""",
                         """Oh, my turn finally""",
                         """ Hello, I'm NAO. I'm a humanoid robot imagined and manufactured by Aldebaran Robotics. \PAU=1000\ One of my favorite activities is to assist teachers in special education classrooms. \PAU=1000\ You see, \PAU=100\ the kids we work with are extraordinary \PAU=500\ and often have a beautiful hidden talent. \PAU=1000\ What I like the most, is when we discover it together. \PAU=1000\ Most children with autism are attracted to technology \PAU=500\ and are curious to work with me. \PAU=1000\ We play interactive games  [animation] to learn about turn taking, work on our memory, sing songs [dance animation] and may even move-on to counting numbers or spelling words. For example: T-E-D-X ^start(animations/Emotions/Positive/Laugh_3) ^wait(animations/Emotions/Positive/Laugh_3) \PAU=100\ As a robot, I can be quite patient, \PAU=400\ and do the same task over and over again, for as many times as a child needs. \PAU=1000\ This brings comfort to the kids, \PAU=500\ keeping them engaged when exploring new topics too. We have so much fun learning together. \PAU=1000\ Isn't it the best to have a robot sidekick growing up? ^start(animations/Emotions/Positive/Laugh_2) ^wait(animations/Emotions/Positive/Laugh_2) Am I right?""",
                         """Alex, \PAU=700\ this is when you show the video of me working with the children. """]
 
     def onUnload(self):
-        #put clean-up code here
         pass
 
     def onInput_onStart(self):
-        self.anim_speech.say(self.content[0])
-        self.anim_speech.say(self.content[1])
+        self.aware.setEngagementMode('Unengaged')
+        result = self.postureProxy.goToPosture('Sit')
+        if not result:
+            self.onStopped()
+
+    def onInput_onDapDone(self):
         self.anim_speech.say(self.content[3])
+        self.postureProxy.goToPosture('Sit')
         self.onStopped()
+
+    def onInput_onBumpers(self):
+        qi.async(self.say_intro)
+        result = self.posture.goToPosture('Stand')
+        if result:
+            self.anim_speech.say(self.content[1])
+            self.anim_speech.say(self.content[2])
+            self.onDap()
+        else:
+            self.tts.say(self.error_msg)
+
+    def say_intro(self):
+        self.aware.setEngagementMode('SemiEngaged')
+        self.anim_speech.say(self.content[0])
+
 
     def onInput_onStop(self):
         self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
@@ -53,9 +76,12 @@ class MyClass(GeneratedClass):
                             <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                             <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
                             <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
-                            <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+                            <Input name="onDapDone" type="1" type_size="1" nature="1" inner="0" tooltip="" id="4" />
+                            <Input name="onBumpers" type="1" type_size="1" nature="1" inner="0" tooltip="" id="5" />
+                            <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="6" />
+                            <Output name="onDap" type="1" type_size="1" nature="2" inner="0" tooltip="" id="7" />
                         </Box>
-                        <Box name="Perform Prop" id="2" localization="8" tooltip="Initiate props proactively" x="277" y="22">
+                        <Box name="Perform Prop" id="2" localization="8" tooltip="Initiate props proactively" x="116" y="139">
                             <bitmap>media/images/box/box-python-script.png</bitmap>
                             <script language="4">
                                 <content>
@@ -144,10 +170,12 @@ class MyClass(GeneratedClass):
                             <Parameter name="Warning timeout" inherits_from_parent="0" content_type="1" value="8" default_value="10" min="0" max="60" tooltip="Dissabled if 0" id="11" />
                             <Parameter name="Failure timeout" inherits_from_parent="0" content_type="1" value="25" default_value="30" min="0" max="100" tooltip="disabled if 0" id="12" />
                         </Box>
-                        <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="4" />
-                        <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="5" />
-                        <Link inputowner="2" indexofinput="2" outputowner="1" indexofoutput="4" />
-                        <Link inputowner="0" indexofinput="6" outputowner="2" indexofoutput="4" />
+                        <Link inputowner="2" indexofinput="2" outputowner="1" indexofoutput="7" />
+                        <Link inputowner="1" indexofinput="4" outputowner="2" indexofoutput="4" />
+                        <Link inputowner="0" indexofinput="6" outputowner="1" indexofoutput="6" />
+                        <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
+                        <Link inputowner="1" indexofinput="5" outputowner="0" indexofoutput="4" />
+                        <Link inputowner="1" indexofinput="5" outputowner="0" indexofoutput="5" />
                     </Diagram>
                 </BehaviorKeyframe>
             </BehaviorLayer>
