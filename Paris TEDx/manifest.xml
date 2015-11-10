@@ -32,6 +32,6 @@
   </behaviorContent>
  </contents>
  <requirements>
-  <robotRequirement maxHeadVersion="5.0" minBodyVersion="3.3" maxBodyVersion="5.0" minHeadVersion="4.0" model="NAO_H25"/>
+  <robotRequirement model="NAO_H25" maxBodyVersion="5.0" minHeadVersion="4.0" maxHeadVersion="5.0" minBodyVersion="3.3"/>
  </requirements>
 </package>
