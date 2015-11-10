@@ -36,7 +36,7 @@ class MyClass(GeneratedClass):
         self.error_msg = "Oh my! I screwed up. Sorry."
         self.content = ["""Tickle""",
                         """Oh, my turn finally""",
-                        """ Hello, I'm NAO. I'm a humanoid robot imagined and manufactured by Aldebaran Robotics. \PAU=1000\ One of my favorite activities is to assist teachers in special education classrooms. \PAU=1000\ You see, \PAU=100\ the kids we work with are extraordinary \PAU=500\ and often have a beautiful hidden talent. \PAU=1000\ What I like the most, is when we discover it together. \PAU=1000\ Most children with autism are attracted to technology \PAU=500\ and are curious to work with me. \PAU=1000\ We play interactive games  [animation] to learn about turn taking, work on our memory, sing songs [dance animation] and may even move-on to counting numbers or spelling words. For example: T-E-D-X ^start(animations/Emotions/Positive/Laugh_3) ^wait(animations/Emotions/Positive/Laugh_3) \PAU=100\ As a robot, I can be quite patient, \PAU=400\ and do the same task over and over again, for as many times as a child needs. \PAU=1000\ This brings comfort to the kids, \PAU=500\ keeping them engaged when exploring new topics too. We have so much fun learning together. \PAU=1000\ Isn't it the best to have a robot sidekick growing up? ^start(animations/Emotions/Positive/Laugh_2) ^wait(animations/Emotions/Positive/Laugh_2) Am I right?""",
+                        """ Hello, I'm NAO. I'm a humanoid robot imagined and manufactured by Aldebaran Robotics. \PAU=1000\ One of my favorite activities is to assist teachers in special education classrooms. \PAU=1000\ You see, \PAU=100\ the kids we work with are extraordinary \PAU=500\ and often have a beautiful hidden talent. \PAU=1000\ What I like the most, is when we discover it together. \PAU=1000\ Most children with autism are attracted to technology \PAU=500\ and are curious to work with me. \PAU=1000\ We play interactive games  [animation] to learn about turn taking, work on our memory, sing songs [dance animation] and may even move-on to counting numbers or spelling words. For example: T-E-D-X ^start(animations/Stand/Emotions/Positive/Laugh_3) ^wait(animations/Stand/Emotions/Positive/Laugh_3) \PAU=100\ As a robot, I can be quite patient, \PAU=400\ and do the same task over and over again, for as many times as a child needs. \PAU=1000\ This brings comfort to the kids, \PAU=500\ keeping them engaged when exploring new topics too. We have so much fun learning together. \PAU=1000\ Isn't it the best to have a robot sidekick growing up? ^start(animations/Stand/Emotions/Positive/Laugh_2) ^wait(animations/Stand/Emotions/Positive/Laugh_2) Am I right?""",
                         """Alex, \PAU=700\ this is when you show the video of me working with the children. """]
 
     def onUnload(self):
@@ -44,18 +44,18 @@ class MyClass(GeneratedClass):
 
     def onInput_onStart(self):
         self.aware.setEngagementMode('Unengaged')
-        result = self.postureProxy.goToPosture('Sit')
+        result = self.posture.goToPosture('Sit', 1)
         if not result:
             self.onStopped()
 
     def onInput_onDapDone(self):
         self.anim_speech.say(self.content[3])
-        self.postureProxy.goToPosture('Sit')
+        self.posture.goToPosture('Sit', 1)
         self.onStopped()
 
     def onInput_onBumpers(self):
         qi.async(self.say_intro)
-        result = self.posture.goToPosture('Stand')
+        result = self.posture.goToPosture('Stand', 1)
         if result:
             self.anim_speech.say(self.content[1])
             self.anim_speech.say(self.content[2])
