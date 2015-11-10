@@ -23,6 +23,7 @@
                                 <content>
                                     <![CDATA[
 import qi
+import threading
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
@@ -33,6 +34,7 @@ class MyClass(GeneratedClass):
         self.tts = self.ses.service('ALTextToSpeech')
         self.posture = self.ses.service("ALRobotPosture")
         self.aware = self.ses.service("ALBasicAwareness")
+        self.lock = threading.lock()
         self.error_msg = "Oh my! I screwed up. Sorry."
         self.content = ["""Tickle""",
                         """Oh, my turn finally""",
@@ -53,14 +55,15 @@ class MyClass(GeneratedClass):
         self.onStopped()
 
     def onInput_onBumpers(self):
-        qi.async(self.say_intro)
-        result = self.posture.goToPosture('Stand')
-        if result:
-            self.anim_speech.say(self.content[1])
-            self.anim_speech.say(self.content[2])
-            self.onDap()
-        else:
-            self.tts.say(self.error_msg)
+        if self.lock.acquire():
+            qi.async(self.say_intro)
+            result = self.posture.goToPosture('Stand')
+            if result:
+                self.anim_speech.say(self.content[1])
+                self.anim_speech.say(self.content[2])
+                self.onDap()
+            else:
+                self.tts.say(self.error_msg)
 
     def say_intro(self):
         self.aware.setEngagementMode('SemiEngaged')
