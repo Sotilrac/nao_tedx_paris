@@ -20,14 +20,11 @@
     <name lang="en_US">Presentation</name>
    </names>
    <triggerSentences>
-    <sentence lang="en_US">TED</sentence>
-    <sentence lang="en_US">TED ex</sentence>
-    <sentence lang="en_US">TED x</sentence>
-    <sentence lang="en_US">Paris ted x</sentence>
+    <sentence lang="en_US">ted</sentence>
     <sentence lang="en_US">ted ex</sentence>
-    <sentence lang="en_US">ted x</sentence>
     <sentence lang="en_US">blow my mind</sentence>
     <sentence lang="en_US">open your mind</sentence>
+    <sentence lang="en_US">tedex</sentence>
    </triggerSentences>
    <loadingResponses>
     <sentence lang="en_US">Let's share ideas</sentence>
