@@ -43,6 +43,9 @@ class MyClass(GeneratedClass):
 
     def onInput_onStart(self):
         self.aware.setEngagementMode('Unengaged')
+        result = self.postureProxy.goToPosture('Sit')
+        if not result:
+            self.onStopped()
 
     def onInput_onDapDone(self):
         self.anim_speech.say(self.content[3])
