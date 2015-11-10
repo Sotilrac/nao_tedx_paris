@@ -38,7 +38,7 @@ class MyClass(GeneratedClass):
         self.lock = threading.Lock()
         self.error_msg = "Oh my! I screwed up. Sorry."
         self.content = ["""Ooh! that tickles. \PAU=700\ My turn finally!""",
-                        """ Hello, I'm NAO. \PAU=500\ I'm a humanoid robot, imagined and manufactured by Aldebaran Robotics, here, in \PAU=1\ Paris. \PAU=1000\ One of my favorite activities is to assist teachers in special education classrooms. \PAU=1000\ You see, \PAU=100\ the kids we work with \PAU=100\ are extraordinary \PAU=500\ and often have a beautiful hidden talent. \PAU=1000\ What I like the most, \PAU=500\ is when we discover it together. \PAU=1000\ Most children with autism are attracted to technology \PAU=500\ and are curious to work with me. \PAU=1000\ We play interactive games to learn about turn taking, work on our memory, \PAU=500\ label objects, \PAU=500\ exercise and dance \PAU=100\ ^run(boston_animation_library/Stand/robotic_dance). We can even count numbers or spell words. \PAU=700\ For example, \PAU=500\ T \PAU=100\ E \PAU=100\ D \PAU=100\ X \PAU=1000\ ted-x ^run(boston_animation_library/Stand/little_laugh). \PAU=1000\ As a robot, I can be quite patient, \PAU=400\ and do the same task over and over again, for as many times as a child needs, \PAU=700\ without ever getting frustrated. \PAU=1000\ This brings comfort to the kids, \PAU=500\ keeping them engaged when exploring new topics. \PAU=800\ We have so much fun learning together. \PAU=1500\ Isn't it the best to have a robot sidekick growing up? ^run(animations/Stand/Emotions/Positive/Laugh_2) \PAU=10\ Am I right?""",
+                        """ Hello, I'm NAO. \PAU=500\ I'm a humanoid robot, imagined and manufactured by Aldebaran Robotics, here, in Paris. \PAU=1000\ One of my favorite activities is to assist teachers in special education classrooms. \PAU=1000\ You see, \PAU=100\ the kids we work with \PAU=100\ are extraordinary \PAU=500\ and often have a beautiful hidden talent. \PAU=1000\ What I like the most, \PAU=500\ is when we discover it together. \PAU=1000\ Most children with autism are attracted to technology \PAU=500\ and are curious to work with me. \PAU=1000\ We play interactive games to learn about turn taking, work on our memory, \PAU=500\ label objects, \PAU=500\ exercise and dance \PAU=100\ ^run(boston_animation_library/Stand/robotic_dance). We can even count numbers or spell words. \PAU=700\ For example, \PAU=500\ T \PAU=100\ E \PAU=100\ D \PAU=100\ X \PAU=1000\ ted-x ^run(boston_animation_library/Stand/little_laugh). \PAU=1000\ As a robot, I can be quite patient, \PAU=400\ and do the same task over and over again, for as many times as a child needs, \PAU=700\ without ever getting frustrated. \PAU=1000\ This brings comfort to the kids, \PAU=500\ keeping them engaged when exploring new topics. \PAU=800\ We have so much fun learning together. \PAU=1500\ Isn't it the best to have a robot sidekick growing up? ^run(animations/Stand/Emotions/Positive/Laugh_2) \PAU=10\ Am I right?""",
                         """\PAU=4000\ Hey Alex, \PAU=1000\ this is when you show the video of me working with the children. """]
 
     def onUnload(self):
@@ -54,7 +54,6 @@ class MyClass(GeneratedClass):
         self.anim_speech.say(self.content[2])
         time.sleep(5)
         self.posture.goToPosture('Sit', 1)
-        self.onStopped()
 
     def onInput_onBumpers(self):
         if self.lock.acquire(False):
@@ -178,6 +177,7 @@ class MyClass(GeneratedClass):
                         <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
                         <Link inputowner="1" indexofinput="5" outputowner="0" indexofoutput="4" />
                         <Link inputowner="1" indexofinput="5" outputowner="0" indexofoutput="5" />
+                        <Link inputowner="0" indexofinput="6" outputowner="1" indexofoutput="6" />
                     </Diagram>
                 </BehaviorKeyframe>
             </BehaviorLayer>
